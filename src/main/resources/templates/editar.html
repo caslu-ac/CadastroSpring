@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns.th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Usuario</title>
+</head>
+<body>
+<form action="/criar" method="post" th:each="${usuario}">
+    <div class="mb-3">
+        <label for="nome" class="form-label" th:value="${usuario.nome}">Digite seu nome</label>
+        <input type="text" class="form-control" name="nome">
+        <div class="form-text">Digite seu nome.</div>
+    </div><div class="mb-3">
+    <label for="profissao" class="form-label" th:value="${usuario.profissao}">Digite sua profissão</label>
+    <input type="text" class="form-control" name="profissao">
+
+    <label for="idade" class="form-label" th:value="${usuario.idade}">Digite sua idade</label>
+    <input type="text" class="form-control" name="idade">
+    <div class="form-text">Digite sua idade.</div>    <div class="form-text">Digite sua profissão.</div>
+</div>
+</body>
+</html>
