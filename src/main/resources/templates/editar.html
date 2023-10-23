@@ -5,18 +5,21 @@
     <title>Editar Usuario</title>
 </head>
 <body>
-<form action="/criar" method="post" th:each="${usuario}">
+<form action="editar" method="put" th:object="${usuario}">
+    <input type="hidden" th:value="${usuario.id}">
     <div class="mb-3">
-        <label for="nome" class="form-label" th:value="${usuario.nome}">Digite seu nome</label>
-        <input type="text" class="form-control" name="nome">
-        <div class="form-text">Digite seu nome.</div>
-    </div><div class="mb-3">
-    <label for="profissao" class="form-label" th:value="${usuario.profissao}">Digite sua profissão</label>
-    <input type="text" class="form-control" name="profissao">
-
-    <label for="idade" class="form-label" th:value="${usuario.idade}">Digite sua idade</label>
-    <input type="text" class="form-control" name="idade">
-    <div class="form-text">Digite sua idade.</div>    <div class="form-text">Digite sua profissão.</div>
-</div>
+        <label for="nome" class="form-label"  >Digite seu nome</label>
+        <input type="text" class="form-control" name="nome" th:value="${usuario.nome}">
+    </div>
+    <div>
+        <label for="profissao" class="form-label" >Digite sua profissão</label>
+        <input type="text" class="form-control" name="profissao" th:value="${usuario.profissao}">
+    </div>
+    <div>
+        <label for="idade" class="form-label" >Digite sua idade</label>
+        <input type="number" class="form-control" name="idade" th:value="${usuario.idade}">
+    </div>
+    <button type="submit">Criar Usuario</button>
+</form>
 </body>
 </html>

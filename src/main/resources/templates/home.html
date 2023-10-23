@@ -7,21 +7,20 @@
     <title>Cadastrar usuario</title>
 </head>
 <body>
-<form action="/criar" method="post">
+<form action="/criar" method="post" th:object="${usuario}">
+    <input type="hidden">
     <div class="mb-3">
         <label for="nome" class="form-label">Digite seu nome</label>
         <input type="text" class="form-control" name="nome">
-        <div class="form-text">Digite seu nome.</div>
     </div><div class="mb-3">
         <label for="profissao" class="form-label">Digite sua profissão</label>
         <input type="text" class="form-control" name="profissao">
-        <div class="form-text">Digite sua profissão.</div>
     </div>
     <div class="mb-3">
         <label for="idade" class="form-label">Digite sua idade</label>
         <input type="number" class="form-control" name="idade">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit">Criar Usuario</button>
 </form>
 </body>
 </html>
