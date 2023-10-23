@@ -7,7 +7,7 @@
     <title>Cadastrar usuario</title>
 </head>
 <body>
-<form action="/criar" method="post" th:object="${usuario}">
+<form action="/criar" method="post">
     <input type="hidden">
     <div class="mb-3">
         <label for="nome" class="form-label">Digite seu nome</label>
@@ -22,5 +22,6 @@
     </div>
     <button type="submit">Criar Usuario</button>
 </form>
+<div> <a href="lista">Listar Usuarios</a> </div>
 </body>
 </html>

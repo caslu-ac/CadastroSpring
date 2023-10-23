@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-@RestController
+@Controller
 @Log4j2
 //@RequestMapping("usuario")
 @RequiredArgsConstructor
@@ -30,7 +30,7 @@ public class UsuarioController {
     }
 
     @PostMapping(path = "/criar")
-    @ResponseStatus(code = HttpStatus.CREATED)
+//    @ResponseStatus(code = HttpStatus.CREATED)
     public String cadastrar(Usuario usuario) {
         repository.save(usuario);
         return "redirect:/lista";
@@ -61,8 +61,9 @@ public class UsuarioController {
 
     }
 
-    @PostMapping("editar")
-    public String editar(Usuario usuarioAtualizado) {
+    @PostMapping("update/{id}")
+    public String editar(@PathVariable("id") Integer id, Usuario usuarioAtualizado) {
+        usuarioAtualizado.setId(id);
         repository.save(usuarioAtualizado);
         return "redirect:/lista";
     }

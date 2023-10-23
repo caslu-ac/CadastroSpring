@@ -5,7 +5,7 @@
     <title>Editar Usuario</title>
 </head>
 <body>
-<form action="editar" method="put" th:object="${usuario}">
+<form action="#" method="post" th:object="${usuario}" th:action="@{/update/{id}(id=${usuario.id})}">
     <input type="hidden" th:value="${usuario.id}">
     <div class="mb-3">
         <label for="nome" class="form-label"  >Digite seu nome</label>
