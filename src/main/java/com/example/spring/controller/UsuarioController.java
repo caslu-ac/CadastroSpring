@@ -25,17 +25,19 @@ public class UsuarioController {
 
 
     private final UsuarioRepository repository;
+    private final UsuarioService service;
 
 
     @GetMapping("/")
     public String home() {
         return "home";
     }
+
     @Transactional
     @PostMapping(path = "/criar")
 //    @ResponseStatus(code = HttpStatus.CREATED)
     public String cadastrar(@Valid Usuario usuario) {
-        repository.save(usuario);
+        service.salvar();
 //        if(usuario.getNome() == "") throw  new BadRequestException("O campo nome não pode estar vazio");
 //        if(usuario.getProfissao() == "") throw  new BadRequestException("O campo profissão não pode estar vazio");
 //        if(usuario.getIdade() == "") throw  new BadRequestException("O campo idade não pode estar vazio");
@@ -45,7 +47,7 @@ public class UsuarioController {
     @GetMapping("/lista")
     public ModelAndView lista() {
         ModelAndView mav = new ModelAndView("lista");
-        List<Usuario> usuarios = repository.findAll();
+        List<Usuario> usuarios = service.listar();
         mav.addObject("lista", usuarios);
         return mav;
 
@@ -53,14 +55,14 @@ public class UsuarioController {
 
     @GetMapping("/deletar/{id}")
     public String deletar(@PathVariable Integer id) {
-        repository.deleteById(id);
+        service.deletar(id);
         return "redirect:/lista";
     }
 
     @GetMapping("editar/{id}")
     public ModelAndView editar(@PathVariable Integer id) {
         ModelAndView mav = new ModelAndView("editar");
-        Optional<Usuario> usuarioVelho = repository.findById(id);
+        Optional<Usuario> usuarioVelho = service.selecionar(id);
         Usuario usuario = usuarioVelho.get();
         mav.addObject("usuario", usuario);
         return mav;
@@ -70,7 +72,7 @@ public class UsuarioController {
     @PostMapping("update/{id}")
     public String editar(@PathVariable("id") Integer id, Usuario usuarioAtualizado) {
         usuarioAtualizado.setId(id);
-        repository.save(usuarioAtualizado);
+        service.salvar();
         return "redirect:/lista";
     }
 }
