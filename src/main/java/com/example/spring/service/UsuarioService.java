@@ -22,13 +22,19 @@ public class UsuarioService {
         return repository.findAll();
     }
 
-    public void deletar(Integer id) {
+    public Usuario deletar(Integer id) {
         repository.deleteById(id);
+        return null;
     }
 
     public Optional<Usuario> selecionar(Integer id) {
+
         return repository.findById(id);
     }
+    public void editar(Integer id){
+        Optional<Usuario> usuario = repository.findById(id);
 
+        return repository.save(usuario);
+    }
 
 }
