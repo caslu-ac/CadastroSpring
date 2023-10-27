@@ -39,7 +39,7 @@ class UsuarioRepositoryTest {
         Usuario usuarioSalvo = this.usuarioRepository.save(usuario);
         usuarioSalvo.setNome("teste");
         usuarioSalvo.setProfissao("testador");
-        usuarioSalvo.setIdade("25");
+        usuarioSalvo.setIdade(25);
         log.info(usuarioSalvo.getNome());
         Usuario usuarioAtualizado = this.usuarioRepository.save(usuarioSalvo);
         Assertions.assertThat(usuarioAtualizado).isNotNull();

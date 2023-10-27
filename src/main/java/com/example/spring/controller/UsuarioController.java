@@ -2,6 +2,8 @@ package com.example.spring.controller;
 
 import com.example.spring.model.Usuario;
 import com.example.spring.repository.UsuarioRepository;
+import com.example.spring.requests.UsuarioPostRequestBody;
+import com.example.spring.requests.UsuarioPutRequestBody;
 import com.example.spring.service.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -50,9 +52,8 @@ public class UsuarioController {
     @Transactional
     @PostMapping(path = "/criar")
 //    @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario) {
-        service.salvar(usuario);
-        return new ResponseEntity<>(usuario, HttpStatus.CREATED);
+    public ResponseEntity<Usuario> cadastrar(@RequestBody UsuarioPostRequestBody usuarioPostRequestBody) {
+        return new ResponseEntity<>(service.salvar(usuarioPostRequestBody), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
@@ -62,9 +63,10 @@ public class UsuarioController {
 
     }
 
-    @PutMapping
-    public ResponseEntity<Void> editar(@RequestBody Usuario usuario, Integer id) {
-        service.editar(usuario.getId());
+    @PutMapping("{id}")
+    public ResponseEntity<Void> editarUsuario(@PathVariable Integer id, @RequestBody UsuarioPutRequestBody usuarioPutRequestBody) {
+        usuarioPutRequestBody.setId(id);
+        service.editar(id, usuarioPutRequestBody);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -7,7 +7,7 @@ public class UsuarioCreator {
         return Usuario.builder()
                 .nome("lucas")
                 .profissao("estag")
-                .idade("21")
+                .idade(12)
                 .build();
     }
     public static Usuario criarUsuarioComId(){
@@ -15,7 +15,7 @@ public class UsuarioCreator {
                 .id(Integer.valueOf("2"))
                 .nome("lucas")
                 .profissao("estag")
-                .idade("21")
+                .idade(21)
                 .build();
     }
     public static Usuario adicionarUsuarioComId(){
@@ -23,7 +23,7 @@ public class UsuarioCreator {
                 .id(Integer.valueOf("2"))
                 .nome("roger")
                 .profissao("estag")
-                .idade("21")
+                .idade(54)
                 .build();
     }
 

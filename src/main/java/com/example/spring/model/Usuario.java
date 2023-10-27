@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.security.cert.CertPathBuilder;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,9 +28,11 @@ public class Usuario {
     @NotEmpty(message = "O campo profissão não pode estar vazio")
     private String profissao;
     @Column
-    @NotEmpty(message = "O campo idade não pode estar vazio")
-    private String idade;
+    private Integer idade;
+
+
 
 }
+
 
 

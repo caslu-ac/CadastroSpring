@@ -2,6 +2,8 @@ package com.example.spring.service;
 
 import com.example.spring.model.Usuario;
 import com.example.spring.repository.UsuarioRepository;
+import com.example.spring.requests.UsuarioPostRequestBody;
+import com.example.spring.requests.UsuarioPutRequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +15,13 @@ import java.util.Optional;
 public class UsuarioService {
     private final UsuarioRepository repository;
 //    private final Usuario usuario;
+    public Usuario salvar(UsuarioPostRequestBody usuarioPostRequestBody) {
+        Usuario usuario = Usuario.builder().nome(usuarioPostRequestBody.getNome())
+        .profissao(usuarioPostRequestBody.getProfissao())
+        .idade(usuarioPostRequestBody.getIdade()).build();
 
-    public void salvar(Usuario usuario) {
-        repository.save(usuario);
+
+        return repository.save(usuario);
     }
 
     public List<Usuario> listar() {
@@ -31,10 +37,20 @@ public class UsuarioService {
 
         return repository.findById(id);
     }
-    public void editar(Integer id){
-        Optional<Usuario> usuario = repository.findById(id);
 
-        return repository.save(usuario);
+    public Optional<Usuario> editar(Integer id, UsuarioPutRequestBody usuarioPutRequestBody) {
+
+        Optional<Usuario> usuarioExistente = repository.findById(id);
+        Usuario usuario = Usuario.builder()
+                .nome(usuarioPutRequestBody.getNome())
+                .profissao(usuarioPutRequestBody.getProfissao())
+                .idade(usuarioPutRequestBody.getIdade()).build();
+        usuario.setId(id);
+//        Usuario usuarioExistente = usuarioAtualizado.get();
+//        usuarioExistente.setId(usuarioAtualizado.getId());
+
+        repository.save(usuario);
+
+        return Optional.of(usuario);
     }
-
 }
