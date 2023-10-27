@@ -8,6 +8,8 @@ import com.example.spring.service.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,11 +36,14 @@ public class UsuarioController {
 //        return "home";
 //    }
 
-    @GetMapping("/lista")
-    public ResponseEntity<List<Usuario>> lista() {
-        List<Usuario> usuarios = service.listar();
+    @GetMapping("/page")
+    public ResponseEntity<Page<Usuario>> page(Pageable pageable) {
+        return ResponseEntity.ok(service.page(pageable));
 
-        return ResponseEntity.ok(usuarios);
+    }@GetMapping("/listarTodos")
+    public List<Usuario> listarTodos() {
+        List<Usuario> usuario = service.listarTodos();
+        return ResponseEntity.ok(usuario).getBody();
 
     }
 

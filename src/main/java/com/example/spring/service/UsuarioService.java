@@ -4,7 +4,10 @@ import com.example.spring.model.Usuario;
 import com.example.spring.repository.UsuarioRepository;
 import com.example.spring.requests.UsuarioPostRequestBody;
 import com.example.spring.requests.UsuarioPutRequestBody;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +18,7 @@ import java.util.Optional;
 public class UsuarioService {
     private final UsuarioRepository repository;
 //    private final Usuario usuario;
-    public Usuario salvar(UsuarioPostRequestBody usuarioPostRequestBody) {
+    public Usuario salvar(@Valid UsuarioPostRequestBody usuarioPostRequestBody) {
         Usuario usuario = Usuario.builder().nome(usuarioPostRequestBody.getNome())
         .profissao(usuarioPostRequestBody.getProfissao())
         .idade(usuarioPostRequestBody.getIdade()).build();
@@ -24,10 +27,13 @@ public class UsuarioService {
         return repository.save(usuario);
     }
 
-    public List<Usuario> listar() {
+    public Page<Usuario> page(Pageable pageable) {
+
+        return repository.findAll(pageable);
+    }
+    public List<Usuario> listarTodos() {
         return repository.findAll();
     }
-
     public Usuario deletar(Integer id) {
         repository.deleteById(id);
         return null;

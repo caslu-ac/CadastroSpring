@@ -13,6 +13,7 @@ import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,27 +26,38 @@ class UsuarioControllerTest {
     private UsuarioController usuarioController;
     @Mock
     private UsuarioService ServiceMock;
+
     @BeforeEach
-    void setUp(){
-       List<Usuario> usuarios = List.of(UsuarioCreator.criarUsuario());
-       BDDMockito.when(ServiceMock.listar())
-               .thenReturn(usuarios);
-//       BDDMockito.when(usuarioService.li(ArgumentMatchers.any(Usuario)))
-//               .thenReturn(List.of(UsuarioCreator.criarUsuario()));
+    void setUp() {
+        PageImpl<Usuario> usuarioPage = new PageImpl<>(List.of(UsuarioCreator.criarUsuario()));
+        BDDMockito.when(ServiceMock.page(ArgumentMatchers.any()))
+                .thenReturn(usuarioPage);
+       BDDMockito.when(ServiceMock.listarTodos())
+               .thenReturn(List.of(UsuarioCreator.criarUsuario()));
 //       BDDMockito.when(usuarioService.listar())
 //               .thenReturn(List.of(UsuarioCreator.criarUsuario()));
     }
 
-//    @Test
-//    @DisplayName("List Return List Of Usuarios When Sucessful")
-//    void list_ReturnListOfUsuarios_WhenSucessful(){
-//        String expectecNome = UsuarioCreator.criarUsuario().getNome();
-//        String usuarios = usuarioController.lista().getModelMap().values().stream().collect(Collectors.toList()).get(0).toString();
-//        Assertions.assertThat(usuarios).isNotEmpty();
-//        Assertions.assertThat(usuarios).isNotNull();
-//        Assertions.assertThat(usuarios).isEqualTo(expectecNome);
-//
-//
+    @Test
+    @DisplayName("List Return List Of Usuarios on page When Sucessful")
+    void list_ReturnListOfUsuariosOnPage_WhenSucessful() {
+        String expectecNome = UsuarioCreator.criarUsuario().getNome();
+        Page<Usuario> usuarios = usuarioController.page(null).getBody();
+
+        Assertions.assertThat(usuarios.toList()).isNotEmpty();
+        Assertions.assertThat(usuarios).isNotNull();
+        Assertions.assertThat(usuarios.toList().get(0).getNome()).isEqualTo(expectecNome);
+    }
+   @Test
+    @DisplayName("List Return List Of Usuarios When Sucessful")
+    void list_ReturnListOfUsuarios_WhenSucessful() {
+        String expectecNome = UsuarioCreator.criarUsuario().getNome();
+        List<Usuario> usuarios = usuarioController.listarTodos();
+
+        Assertions.assertThat(usuarios).isNotEmpty();
+        Assertions.assertThat(usuarios).isNotNull();
+        Assertions.assertThat(usuarios.get(0).getNome()).isEqualTo(expectecNome);
+    }
 //    }
 
-}
+    }
