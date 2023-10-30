@@ -5,7 +5,6 @@ import com.example.spring.repository.UsuarioRepository;
 import com.example.spring.requests.UsuarioPostRequestBody;
 import com.example.spring.requests.UsuarioPutRequestBody;
 import com.example.spring.service.UsuarioService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -48,7 +47,7 @@ public class UsuarioController {
     }
 
     @GetMapping("find/{id}")
-    public ResponseEntity<Optional<Usuario>> editar(@PathVariable Integer id) {
+    public ResponseEntity<Optional<Usuario>> selecionar(@PathVariable Integer id) {
         Optional<Usuario> usuario = service.selecionar(id);
         return ResponseEntity.ok(usuario);
 
@@ -61,14 +60,14 @@ public class UsuarioController {
         return new ResponseEntity<>(service.salvar(usuarioPostRequestBody), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletar/{id}")
     public ResponseEntity<Void>deletar(@PathVariable Integer id) {
         service.deletar(id);
         return new  ResponseEntity<>(HttpStatus.NO_CONTENT);
 
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/editar/{id}")
     public ResponseEntity<Void> editarUsuario(@PathVariable Integer id, @RequestBody UsuarioPutRequestBody usuarioPutRequestBody) {
         usuarioPutRequestBody.setId(id);
         service.editar(id, usuarioPutRequestBody);

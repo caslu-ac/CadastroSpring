@@ -1,9 +1,7 @@
 package com.example.spring.repository;
 
 import com.example.spring.model.Usuario;
-import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.extern.log4j.Log4j2;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -14,8 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.spring.UsuarioCreator.criarUsuario;
-import static org.junit.jupiter.api.Assertions.*;
+import static com.example.spring.util.UsuarioCreator.criarUsuario;
 
 @DataJpaTest
 @DisplayName("teste para o UsuarioRepository")

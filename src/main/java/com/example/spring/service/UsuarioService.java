@@ -1,5 +1,6 @@
 package com.example.spring.service;
 
+import com.example.spring.exceptions.BadRequestException;
 import com.example.spring.model.Usuario;
 import com.example.spring.repository.UsuarioRepository;
 import com.example.spring.requests.UsuarioPostRequestBody;
@@ -34,17 +35,17 @@ public class UsuarioService {
     public List<Usuario> listarTodos() {
         return repository.findAll();
     }
-    public Usuario deletar(Integer id) {
-        repository.deleteById(id);
-        return null;
-    }
+
 
     public Optional<Usuario> selecionar(Integer id) {
 
         return repository.findById(id);
     }
-
-    public Optional<Usuario> editar(Integer id, UsuarioPutRequestBody usuarioPutRequestBody) {
+    public Usuario selecionarOrThrowBadRequest(Integer id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new BadRequestException("Usuario não encontrado"));
+    }
+    public Void editar(Integer id, UsuarioPutRequestBody usuarioPutRequestBody) {
 
         Optional<Usuario> usuarioExistente = repository.findById(id);
         Usuario usuario = Usuario.builder()
@@ -52,11 +53,12 @@ public class UsuarioService {
                 .profissao(usuarioPutRequestBody.getProfissao())
                 .idade(usuarioPutRequestBody.getIdade()).build();
         usuario.setId(id);
-//        Usuario usuarioExistente = usuarioAtualizado.get();
-//        usuarioExistente.setId(usuarioAtualizado.getId());
 
         repository.save(usuario);
-
-        return Optional.of(usuario);
+        return null;
+    }
+    public Void deletar(Integer id) {
+        repository.deleteById(id);
+        return null;
     }
 }

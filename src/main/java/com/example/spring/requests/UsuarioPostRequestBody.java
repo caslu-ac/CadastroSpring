@@ -3,8 +3,10 @@ package com.example.spring.requests;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Data;
 @Data
+@Builder
 public class UsuarioPostRequestBody {
     @NotEmpty(message = "O campo nome não pode estar vazio")
     @NotNull
