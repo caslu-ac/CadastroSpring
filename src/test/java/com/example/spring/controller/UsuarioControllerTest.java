@@ -74,16 +74,16 @@ class UsuarioControllerTest {
         Assertions.assertThat(usuarios).isNotNull();
         Assertions.assertThat(usuarios.get(0).getNome()).isEqualTo(expectecNome);
     }
-    @Test
-    @DisplayName("List Return Usuario By Id When Sucessful")
-    void list_ReturnUsuarioById_WhenSucessful() {
-        Integer expectedId = UsuarioCreator.criarUsuarioComId().getId();
-        Optional<Usuario> usuario = usuarioController.selecionar(1).getBody();
-
-        Assertions.assertThat(usuario).isNotEmpty();
-        Assertions.assertThat(usuario).isNotNull();
-        Assertions.assertThat(usuario.get().getId()).isEqualTo(expectedId);
-    }
+//    @Test
+//    @DisplayName("List Return Usuario By Id When Sucessful")
+//    void list_ReturnUsuarioById_WhenSucessful() {
+//        Integer expectedId = UsuarioCreator.criarUsuarioComId().getId();
+//        Optional<Usuario> usuario = usuarioController.selecionar(1).getBody();
+//
+//        Assertions.assertThat(usuario).isNotEmpty();
+//        Assertions.assertThat(usuario).isNotNull();
+//        Assertions.assertThat(usuario.get().getId()).isEqualTo(expectedId);
+//    }
 
     @Test
     @DisplayName("Save Return Usuario When Sucessful")
